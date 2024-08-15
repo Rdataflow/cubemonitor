@@ -32,7 +32,7 @@ _checkobservations() {
     htmlreport=html_reports/${cubename_base}.observations.html
     cmd="npx barnard59 cube fetch-metadata --endpoint ${endpoint} --cube ${cube} > metadata.ttl<br />npx barnard59 cube fetch-observations --endpoint ${endpoint} --cube ${cube} | npx barnard59 cube check-observations --constraint metadata.ttl | npx barnard59 shacl report-summary"
     touch ${observations}
-    until [ -s ${observations} ] ; do \
+    until [ -e ${observations} ] ; do \
       cat query-observation-sample.rq | sed -e "s~\${cube}~${cube}~" | curl ${endpoint} -f -s -X POST -H 'Accept: application/n-triples' -H 'Content-Type: application/sparql-query' --data-binary @- -o ${observations} || ( rm -f ${observations} ; sleep `shuf -i 5-20 -n 1` )
     done
     until [ -s ${txtreport} ] ; do \

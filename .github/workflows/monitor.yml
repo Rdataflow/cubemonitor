@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install Packages 🧩
         run: npm install -g barnard59 barnard59-cube barnard59-shacl
       - name: Get list of Cubes 🧊
@@ -36,6 +36,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'html_reports'
+          retention-days: 90
 
   deploy:
     name: Deploy result
